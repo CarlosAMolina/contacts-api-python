@@ -1,0 +1,23 @@
+[project]
+name = "contacts-api-python"
+version = "0.1.0"
+requires-python = "==3.14.*"
+dependencies = [
+    "pydantic==2.14.1",
+]
+
+[dependency-groups]
+dev = [
+    "mypy==2.4.0",
+    "pytest==9.1.1",
+    "ruff==0.17.2",
+]
+
+[tool.mypy]
+check_untyped_defs = true
+
+[tool.ruff.lint.isort]
+force-single-line = true
+
+[tool.uv]
+add-bounds = "exact"

@@ -1,0 +1,22 @@
+[
+  {
+    "addresses": [
+      "C/ test"
+    ],
+    "categories": [
+      "Friends"
+    ],
+    "emails": [
+      "john@mail.com"
+    ],
+    "id": 1,
+    "name": "John",
+    "note": "Country: España",
+    "phones": [
+      {
+        "number": "123456789"
+      }
+    ],
+    "surname": "Doe"
+  }
+]
