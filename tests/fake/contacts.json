@@ -1,0 +1,95 @@
+{
+  "contacts": [
+    {
+      "id": 1,
+      "addresses": [
+        "C/ test",
+        "bar foo"
+      ],
+      "categories": [
+        "university",
+        "friend"
+      ],
+      "emails": [
+        "john@mail.com"
+      ],
+      "name": "John",
+      "nicknames": [
+        "Johnny",
+        "JD"
+      ],
+      "note": "Country: España",
+      "phones": [
+        {
+          "description": "personal",
+          "number": "123456789"
+        },
+        {
+          "description": "work",
+          "number": "123123123"
+        }
+      ],
+      "socialNetwork": {
+        "discordAccounts": [
+          {
+            "alias": "foo",
+            "discriminator": 1,
+            "globalName": "foo",
+            "legacyUserName": "foo",
+            "userName": "foo"
+          },
+          {
+            "alias": "bar",
+            "legacyUserName": "bar",
+            "userName": "bar"
+          }
+        ],
+        "facebookAccounts": [
+          "https://www.facebook.com/john.d/"
+        ],
+        "githubAccounts": [
+          "foo",
+          "bar"
+        ],
+        "instagramAccounts": [
+          "foo"
+        ],
+        "linkedinAccounts": [
+          "foo"
+        ],
+        "telegramAccounts": [
+          "foo"
+        ],
+        "tiktokAccounts": [
+          "foo"
+        ],
+        "twitterAccounts": [
+          "foo"
+        ],
+        "wallapopAccounts": [
+          {
+            "url": "foo",
+            "note": "foo"
+          },
+          {
+            "url": "bar",
+            "note": "bar"
+          }
+        ]
+      },
+      "surname": "Doe",
+      "urls": [
+        "foo"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Jane",
+      "phones": [
+        {
+          "number": "123456789"
+        }
+      ]
+    }
+  ]
+}
