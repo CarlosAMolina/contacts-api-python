@@ -1,13 +1,8 @@
-import sys
-from contextlib import redirect_stdout
-from io import StringIO
 from pathlib import Path
-from unittest.mock import patch
 
 from fastapi.testclient import TestClient
 
 from contacts_api_python.main import app
-from contacts_api_python.main import main
 
 client = TestClient(app)
 
@@ -42,16 +37,3 @@ def test_get_contact_if_contact_id_does_not_exist(contacts_path_env_fixture):
     response = client.get("/contacts/-1")
     assert response.status_code == 404
     assert response.json() == {"detail": "Contact not found"}
-
-
-def test_main_shows_contacts(contacts_path_env_fixture):
-    fake_path = Path("tests/fake")
-    expected_result = (fake_path / "contacts-output.txt").read_text()
-    output = StringIO()
-    args = ["main.py", "john"]
-    with (
-        patch.object(sys, "argv", args),
-        redirect_stdout(output),
-    ):
-        main()
-    assert output.getvalue() == expected_result

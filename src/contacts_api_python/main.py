@@ -4,10 +4,8 @@ from fastapi import status
 from fastapi.responses import Response
 
 from contacts_api_python import crud
-from contacts_api_python.cli import parse_arguments
 from contacts_api_python.models import Contact
 from contacts_api_python.models import Contacts
-from contacts_api_python.representation import prettify_contacts
 
 _TITLE = "Contacts API"
 
@@ -32,8 +30,7 @@ def get_contacts(search_term: str | None = None) -> Contacts:
 
 @app.get("/contacts/html")
 def get_contacts_html(search_term: str | None = None) -> Response:
-    contacts = crud.list_contacts(search_term)
-    content = prettify_contacts(contacts)
+    content = crud.list_contacts_html(search_term)
     return Response(
         content=content,
         media_type="application/json",
@@ -47,13 +44,3 @@ def get_contact(contact_id: int) -> Contact:
     raise HTTPException(
         status_code=status.HTTP_404_NOT_FOUND, detail="Contact not found"
     )
-
-
-def main() -> None:
-    search_term = parse_arguments().search_term
-    contacts = crud.list_contacts(search_term)
-    print(prettify_contacts(contacts))
-
-
-if __name__ == "__main__":
-    main()

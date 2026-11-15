@@ -30,10 +30,6 @@ run-api-dev:
 	contacts_path=tests/fake/contacts.json \
 		uv run fastapi dev
 
-run-cli:
-	contacts_path=tests/fake/contacts.json \
-		uv run python -m src.contacts_api_python.main jane
-
 test:
 	uv run pytest
 
