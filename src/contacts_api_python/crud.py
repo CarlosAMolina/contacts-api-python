@@ -2,7 +2,6 @@ from contacts_api_python.json_file.read import read_contacts
 from contacts_api_python.json_file.search import search_contacts
 from contacts_api_python.models import Contact
 from contacts_api_python.models import Contacts
-from contacts_api_python.representation import prettify_contacts
 
 
 def list_contacts(search_term: str | None = None) -> Contacts:
@@ -10,11 +9,6 @@ def list_contacts(search_term: str | None = None) -> Contacts:
     if search_term:
         contacts = search_contacts(contacts, search_term)
     return contacts
-
-
-def list_contacts_html(search_term: str | None = None) -> str:
-    contacts = list_contacts(search_term)
-    return prettify_contacts(contacts)
 
 
 def get_contact(contact_id: int) -> Contact | None:

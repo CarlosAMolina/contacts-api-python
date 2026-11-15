@@ -7,6 +7,13 @@ from contacts_api_python.main import app
 client = TestClient(app)
 
 
+def test_get_contacts_if_no_file(monkeypatch):
+    monkeypatch.setenv("contacts_path", "missing_file.json")
+    response = client.get("/contacts")
+    assert response.status_code == 503
+    assert response.json() == {"detail": "No contacts file"}
+
+
 def test_get_contacts_if_no_search_term(contacts_path_env_fixture):
     response = client.get("/contacts")
     assert response.status_code == 200

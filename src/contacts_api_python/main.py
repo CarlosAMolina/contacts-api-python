@@ -1,46 +1,39 @@
 from fastapi import FastAPI
-from fastapi import HTTPException
+from fastapi import Request
 from fastapi import status
-from fastapi.responses import Response
+from fastapi.responses import JSONResponse
 
-from contacts_api_python import crud
-from contacts_api_python.models import Contact
-from contacts_api_python.models import Contacts
-
-_TITLE = "Contacts API"
+from contacts_api_python.constants import DESCRIPTION
+from contacts_api_python.exceptions import ContactNotFoundError
+from contacts_api_python.routers import contacts
 
 app = FastAPI(
-    title=_TITLE,
+    title=DESCRIPTION,
     description="An API for managing contacts that are typically stored in a mobile phone’s address book.",
 )
+
+app.include_router(contacts.router)
+
+
+@app.exception_handler(ContactNotFoundError)
+def handle_contact_not_found_error(request: Request, exc: ContactNotFoundError):
+    return JSONResponse(
+        status_code=status.HTTP_404_NOT_FOUND,
+        content={"detail": "Contact not found"},
+    )
+
+
+@app.exception_handler(FileNotFoundError)
+def handle_file_not_found_error(request: Request, exc: FileNotFoundError):
+    return JSONResponse(
+        status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+        content={"detail": "No contacts file"},
+    )
 
 
 @app.get("/")
 def read_root() -> dict[str, str]:
     return {
-        "app": _TITLE,
+        "app": DESCRIPTION,
         "docs": "/docs",
     }
-
-
-@app.get("/contacts")
-def get_contacts(search_term: str | None = None) -> Contacts:
-    return crud.list_contacts(search_term)
-
-
-@app.get("/contacts/html")
-def get_contacts_html(search_term: str | None = None) -> Response:
-    content = crud.list_contacts_html(search_term)
-    return Response(
-        content=content,
-        media_type="application/json",
-    )
-
-
-@app.get("/contacts/{contact_id}")
-def get_contact(contact_id: int) -> Contact:
-    if contact := crud.get_contact(contact_id):
-        return contact
-    raise HTTPException(
-        status_code=status.HTTP_404_NOT_FOUND, detail="Contact not found"
-    )
